@@ -293,7 +293,7 @@ addLayer("h", {
         },
         14: {
             title: "hydrogen IV",
-            description: "improve hydrogen II",
+            description: "improve hydrogen II(every effect*0.8)",
             cost: new Decimal('100'),
             effect(){
                 let mult = new Decimal(0.8)
