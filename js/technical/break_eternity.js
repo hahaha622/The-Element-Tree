@@ -2148,7 +2148,10 @@
             break;
           }
         }
-
+        /*written by hahaha:
+        according to vorona,slog is bugged>=eee9e15,
+        
+        */
         return Decimal.fromNumber(result);
       }
     }, {
@@ -3264,3 +3267,22 @@
   return Decimal;
 
 }));
+/*more
+*/
+Decimal.prototype.clone = function() {
+      return this
+}
+Decimal.prototype.dilate = function(power){
+    var x = this.clone()
+    return x.log10().pow(new Decimal(power)).pow10()
+}
+
+Decimal.prototype.applyeffect = function(layer,id){
+    var x = this.clone()
+    return applyeffect(layer,id,x)
+}
+
+Decimal.prototype.applyexpeffect = function(layer,id){
+    var x = this.clone()
+    return applyexpeffect(layer,id,x)
+}

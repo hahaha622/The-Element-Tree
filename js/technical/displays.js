@@ -64,12 +64,11 @@ function updateWidth() {
 function updateOomps(diff)
 {
 	tmp.other.oompsMag = 0
-	if (player.points.lte(new Decimal(1e100)) || diff == 0) return
 
 	var pp = new Decimal(player.points);
 	var lp = tmp.other.lastPoints || new Decimal(0);
 	if (pp.gt(lp)) {
-		if (pp.gte("10^^8")) {
+		if (pp.gte("10^^10")) {
 			pp = pp.slog(1e10)
 			lp = lp.slog(1e10)
 			tmp.other.oomps = pp.sub(lp).div(diff)
