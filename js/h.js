@@ -156,9 +156,9 @@ addLayer("h", {
         return player.h.storagedh.add(player.h.storagedhe)
     },
     stellasize(){
-        let s = tmp.h.fullstella.div(1e15).pow(0.5).div(3.14)
-        s = applyeffect('he',22,s)
-        return s
+        let  = tmp.h.fullstella.div(1e15).pow(0.5).div(3.14)
+         = applyeffect('he',22,)
+        return 
     },
     stellaseff(){
         if(!hasUpgrade('he', 14)) return decimalOne
@@ -254,7 +254,7 @@ addLayer("h", {
         },
         12: {
             title: "hydrogen II",
-            description: "every upgrades in this row except hydrogen I makes effect log *0.99",
+            description: "every upgrades in this row except hydrogen I makes effect log base *0.99",
             cost: new Decimal('30'),
             effect(){
                 let mult = decimalOne
