@@ -74,7 +74,7 @@ addLayer("li", {
         13: {
             title: "lithum III",
             description: "helium XIV also effect 4th hydrogen softcap,hydrogen point softcap is more weak(dilate to ^0.25 -> dilate to ^0.35)",
-            cost: new Decimal('1100'),
+            cost: new Decimal('11000'),
             effect(){
                 return upgradeEffect('he', 34)
             },

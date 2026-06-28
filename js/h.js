@@ -137,7 +137,7 @@ addLayer("h", {
         return start
     },
     sc4able(){
-        return player.h.points.gte(tmp.h.sc3start)
+        return player.h.points.gte(tmp.h.sc4start)
     },
     effect(){
         if(!hasUpgrade('h',11)) return decimalOne
@@ -181,7 +181,7 @@ addLayer("h", {
         return player.h.storagedhe.div(1e10).max(1).log(1.15).pow(4.71).max(1)
     },
     mustbr(){
-	    return false
+	    return tmp.h.clickables[11].unlocked || tmp.h.clickables[12].unlocked ||tmp.h.clickables[13].unlocked
     },
     tabFormat: {
         "Main": {
@@ -227,9 +227,15 @@ addLayer("h", {
                 function(){if (hasUpgrade('h', 31)) return 'Your storaged ' + layerText('h2', 'he', format(player.h.storagedhe)) + ' helium in your stella,boost helium effect by ' + layerText('h2', 'he', format(tmp.h.sheboost)) + '<br><br>'}
                 ],
                 ["raw-html",
-                function(){if (hasUpgrade('h', 35)) return 'You are storaging ' + layerText('h2', 'he', format(tmp.he.resetGain)) + ' helium to your stella per second<br><br>'}
+                function(){if (hasUpgrade('h', 35)) return 'You are storaging ' + layerText('h2', 'he', format(tmp.he.resetGain)) + ' helium to your stella per second<br>'}
+                ],
+                ["raw-html",
+                function(){if (tmp.h.mustbr) return '<br>'}
                 ],
                 "clickables",
+                ["raw-html",
+                function(){if (tmp.h.mustbr) return '<br>'}
+                ],
                 ["upgrades",[3,4]],
             ],
             shouldNotify(){
@@ -455,7 +461,7 @@ addLayer("h", {
         43: {
             title: "stella VIII",
             description: "effect booster also boost hygrogen point base and helium",
-            cost: new Decimal('1e190'),
+            cost: new Decimal('1e210'),
             effect(){
                 return tmp.he.buyables[11].effect
             },
@@ -466,7 +472,7 @@ addLayer("h", {
         44: {
             title: "stella IX",
             description: "stella II and stella III also gives an exponential boost to points and stella IV",
-            cost: new Decimal('1e190'),
+            cost: new Decimal('1e292'),
             effect(){
                 let eff = decimalOne
                 eff = applyeffect('h',32,eff)

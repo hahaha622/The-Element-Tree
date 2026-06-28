@@ -169,7 +169,7 @@ addLayer("he", {
         31: {
             title: "helium XI",
             description: "remove 2nd hydrogen softcap,effect booster cost exp is 2,auto buy it",
-            cost: new Decimal('5e57'),
+            cost: new Decimal('1e67'),
             effect(){
             let exp = new Decimal(0.71)
             return exp
@@ -203,7 +203,7 @@ addLayer("he", {
         34: {
             title: "helium XIV",
             description: "next prepare!4th hydrogen softcap start is 1e1000,3rd hydrogen point softcap start is raised to ln(ln(ln(stella IXeffect+1)+1)+1)+1!!",
-            cost: new Decimal('5e130'),
+            cost: new Decimal('1e130'),
             effect (){
             let eff = upgradeEffect('h', 44)
             eff = eff.add(1).ln().add(1).ln().add(1).ln().add(1).max(1)
@@ -217,7 +217,7 @@ addLayer("he", {
         35: {
             title: "helium XIV",
             description: "unlock lithum,4th hydrogen softcap start is 1e2000,3th hydrogen softcap is weaker(^0.01->^0.1)!!",
-            cost: new Decimal('1e134'),
+            cost: new Decimal('1e133'),
             effect (){
             let eff = new Decimal(10)
             
