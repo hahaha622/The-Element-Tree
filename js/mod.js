@@ -17,7 +17,7 @@ let VERSION = {
 
 let changelog = `
 <h1>CURRENT ENDGAME:</h1><br>
-<h2>buy 'lithum III upgrade'</h2><br><br>
+<h2>buy 'lithum III' upgrade</h2><br><br>
 <h1>CHANGELOG</h1>
 
 <br><br><h2>pre release stage</h2>
