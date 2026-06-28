@@ -78,4 +78,14 @@ function milestoneShown(layer, id) {
 	return false;
 }
 
+function togglePause(){
+if(player.devSpeed==0){player.devSpeed=new Decimal(1)}
+else player.devSpeed=new Decimal(0)
+}
+
+function pausetext(){
+if(player.devSpeed==0) return 'pause'
+return 'running'
+}
+
 let formatOption = (opt) => opt ? 'ON' : 'OFF'

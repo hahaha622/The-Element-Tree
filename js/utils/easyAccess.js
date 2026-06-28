@@ -81,3 +81,45 @@ function achievementEffect(layer, id) {
 function gridEffect(layer, id) {
 	return (gridRun(layer, 'getEffect', player[layer].grid[id], id))
 }
+
+function layerText(elem, layer, text) {
+	return "<" + elem + " style='color:" + tmp[layer].color + ";text-shadow:0px 0px 10px;'>" + text + "</" + elem + ">"
+}
+
+function colorText(elem, color, text) {
+	return "<" + elem + " style='color:" + color + ";text-shadow:0px 0px 10px;'>" + text + "</" + elem + ">"
+}
+
+function nonshadowcolorText(elem, color, text) {
+	return "<" + elem + " style='color:" + color + "'>" + text + "</" + elem + ">"
+}
+
+function applyeffect(layer,upg,num) {
+    if(hasUpgrade(layer, upg)) {return num.times(upgradeEffect(layer, upg))}
+    else {return num}
+}
+
+function applyexpeffect(layer,upg,num) {
+    if(hasUpgrade(layer, upg)) {return num.pow(upgradeEffect(layer, upg))}
+    else {return num}
+}
+
+function applybuyeffect(layer,buy,num) {
+    if(tmp[layer].buyables[buy].unlocked) {return num.times(buyableEffect(layer, buy))}
+    return num
+}
+
+function applysoftcap(start,exp,cur){
+if(cur.gte(start)) return new Decimal (cur).div(start).pow(exp).times(start)
+return cur
+}
+
+function applydilatesoftcap(start,exp,cur){
+if(cur.gte(start)) return cur.div(start).times(10).dilate(exp).times(start).div(10)
+return cur
+}
+
+function applylogsoftcap(start,log,cur){
+if(cur.gte(start)) return cur.div(start).log(log).times(start)
+return cur
+}
