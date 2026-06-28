@@ -61,7 +61,7 @@ function buyUpg(layer, id) {
 	if (pay !== undefined)
 		run(pay, layers[layer].upgrades[id])
 	else {
-		let cost = tmp[layer].upgrades[id].cost
+		let cost = new Decimal(tmp[layer].upgrades[id].cost)
 
 		if (upg.currencyInternalName) {
 			let name = upg.currencyInternalName

@@ -395,6 +395,7 @@ function hardReset(resetOptions) {
 	if(resetOptions) options = null
 	save(true);
 	window.location.reload();
+	player.devSpeed = new Decimal(1)
 }
 
 var ticking = false
@@ -408,7 +409,7 @@ var interval = setInterval(function() {
 	let diff = (now - player.time) / 1e3
 	let trueDiff = diff
 	if (player.offTime !== undefined) {
-		if (player.offTime.remain > modInfo.offlineLimit * 3600) player.offTime.remain = modInfo.offlineLimit * 3600
+//		if (player.offTime.remain > modInfo.offlineLimit * 3600) player.offTime.remain = modInfo.offlineLimit * 3600          **disabled
 		if (player.offTime.remain > 0) {
 			let offlineDiff = Math.max(player.offTime.remain / 10, diff)
 			player.offTime.remain -= offlineDiff

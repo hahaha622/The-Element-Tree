@@ -236,7 +236,10 @@ function loadVue() {
 	Vue.component('main-display', {
 		props: ['layer', 'data'],
 		template: `
-		<div><span v-if="player[layer].points.lt('1e1000')">You have </span><h2 v-bind:style="{'color': tmp[layer].color, 'text-shadow': '0px 0px 10px ' + tmp[layer].color}">{{data ? format(player[layer].points, data) : formatWhole(player[layer].points)}}</h2> {{tmp[layer].resource}}<span v-if="layers[layer].effectDescription">, <span v-html="run(layers[layer].effectDescription, layers[layer])"></span></span><br><br></div>
+		<div>
+		<span v-if="player[layer].points.lt('1e1000')">You have </span><h2 v-bind:style="{'color': tmp[layer].color, 'text-shadow': '0px 0px 10px ' + tmp[layer].color}">{{data ? format(player[layer].points, data) : formatWhole(player[layer].points)}}</h2> {{tmp[layer].resource}}<span v-if="layers[layer].effectDescription()!==undefined">,<span v-html="run(layers[layer].effectDescription, layers[layer])"></span></span><br><br>
+		<span v-if="tmp[layer].passiveGeneration">You are gaining <h2 v-bind:style="{'color': tmp[layer].color, 'text-shadow': '0px 0px 10px ' + tmp[layer].color}">{{data ? format(tmp[layer].resetGain.times(tmp[layer].passiveGeneration), data) : formatWhole(tmp[layer].resetGain.times(tmp[layer].passiveGeneration))}}</h2> {{tmp[layer].resource}} per second<br><br></span>
+		</div>
 		`
 	})
 
@@ -244,12 +247,10 @@ function loadVue() {
 	Vue.component('resource-display', {
 		props: ['layer'],
 		template: `
-		<div style="margin-top: -13px">
-			<span v-if="tmp[layer].baseAmount"><br>You have {{formatWhole(tmp[layer].baseAmount)}} {{tmp[layer].baseResource}}</span>
-			<span v-if="tmp[layer].passiveGeneration"><br>You are gaining {{format(tmp[layer].resetGain.times(tmp[layer].passiveGeneration))}} {{tmp[layer].resource}} per second</span>
-			<br><br>
-			<span v-if="tmp[layer].showBest">Your best {{tmp[layer].resource}} is {{formatWhole(player[layer].best)}}<br></span>
-			<span v-if="tmp[layer].showTotal">You have made a total of {{formatWhole(player[layer].total)}} {{tmp[layer].resource}}<br></span>
+		<div>
+			<span v-if="tmp[layer].baseAmount">You have {{(tmp[layer].baseAmount.eq(tmp[layer].baseAmount.floor()))?(formatWhole(tmp[layer].baseAmount)):(format(tmp[layer].baseAmount))}} {{tmp[layer].baseResource}}<br><br></span>
+			<span v-if="tmp[layer].showBest">Your best {{tmp[layer].resource}} is {{formatWhole(player[layer].best)}}<br><br></span>
+			<span v-if="tmp[layer].showTotal">You have made a total of {{formatWhole(player[layer].total)}} {{tmp[layer].resource}}<br><br></span>
 		</div>
 		`
 	})
@@ -260,7 +261,7 @@ function loadVue() {
 		<div v-if="tmp[layer].buyables" class="upgTable">
 			<respec-button v-if="tmp[layer].buyables.respec && !(tmp[layer].buyables.showRespec !== undefined && tmp[layer].buyables.showRespec == false)" :layer = "layer" v-bind:style="[{'margin-bottom': '12px'}, tmp[layer].componentStyles['respec-button']]"></respec-button>
 			<div v-for="row in (data === undefined ? tmp[layer].buyables.rows : data)" class="upgRow">
-				<div v-for="col in tmp[layer].buyables.cols"><div v-if="tmp[layer].buyables[row*10+col]!== undefined && tmp[layer].buyables[row*10+col].unlocked" class="upgAlign" v-bind:style="{'margin-left': '7px', 'margin-right': '7px',  'height': (data ? data : 'inherit'),}">
+				<div v-for="col in tmp[layer].buyables.cols"><div v-if="tmp[layer].buyables[row*10+col]!== undefined && tmp[layer].buyables[row*10+col].unlocked" class="upgAlign" v-bind:style="{'margin-left': '0px', 'margin-right': '0px',  'height': (data ? data : 'inherit'),}">
 					<buyable :layer = "layer" :data = "row*10+col"></buyable>
 				</div></div>
 				<br>
@@ -321,7 +322,7 @@ function loadVue() {
 		<div v-if="tmp[layer].clickables" class="upgTable">
 			<master-button v-if="tmp[layer].clickables.masterButtonPress && !(tmp[layer].clickables.showMasterButton !== undefined && tmp[layer].clickables.showMasterButton == false)" :layer = "layer" v-bind:style="[{'margin-bottom': '12px'}, tmp[layer].componentStyles['master-button']]"></master-button>
 			<div v-for="row in (data === undefined ? tmp[layer].clickables.rows : data)" class="upgRow">
-				<div v-for="col in tmp[layer].clickables.cols"><div v-if="tmp[layer].clickables[row*10+col]!== undefined && tmp[layer].clickables[row*10+col].unlocked" class="upgAlign" v-bind:style="{'margin-left': '7px', 'margin-right': '7px',  'height': (data ? data : 'inherit'),}">
+				<div v-for="col in tmp[layer].clickables.cols"><div v-if="tmp[layer].clickables[row*10+col]!== undefined && tmp[layer].clickables[row*10+col].unlocked" class="upgAlign" v-bind:style="{'margin-left': '0px', 'margin-right': '0px',  'height': (data ? data : 'inherit'),}">
 					<clickable :layer = "layer" :data = "row*10+col" v-bind:style="tmp[layer].componentStyles.clickable"></clickable>
 				</div></div>
 				<br>
@@ -434,7 +435,7 @@ function loadVue() {
 			currentTab() {return player.subtabs[layer][data]}
 		},
 		template: `
-		<div v-if="tmp[layer].microtabs" :style="{'border-style': 'solid'}">
+		<div v-if="tmp[layer].microtabs" :style="{'border-style': 'none'}">
 			<div class="upgTable instant">
 				<tab-buttons :layer="layer" :data="tmp[layer].microtabs[data]" :name="data" v-bind:style="tmp[layer].componentStyles['tab-buttons']"></tab-buttons>
 			</div>
@@ -445,6 +446,19 @@ function loadVue() {
 		`
 	})
 
+    Vue.component('contentset', {
+		props: ['layer', 'data'],
+		computed: {
+			currentTab() {return player.contentset[layer][data]}
+		},
+		template: `
+		<div v-if="tmp[layer].contentset" :style="{'border-style': 'none'}">
+			<layer-tab v-if="tmp[layer].contentset[data].embedLayer" :layer="tmp[layer].contentset[data].embedLayer" :embedded="true"></layer-tab>
+
+			<column v-else v-bind:style="tmp[layer].contentset[data].style" :layer="layer" :data="tmp[layer].contentset[data].content"></column>
+		</div>
+		`
+	})
 
 	// data = id of the bar
 	Vue.component('bar', {

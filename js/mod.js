@@ -1,25 +1,41 @@
 let modInfo = {
-	name: "The ??? Tree",
-	author: "nobody",
+	name: "The Element Tree",
+	author: "hahaha",
 	pointsName: "points",
-	modFiles: ["layers.js", "tree.js"],
+	modFiles: ["t.js", "h.js", "he.js", "li.js", "tree.js"],
 
-	discordName: "",
-	discordLink: "",
-	initialStartPoints: new Decimal (10), // Used for hard resets and new players
-	offlineLimit: 1,  // In hours
+	discordName: "Visit author",
+	discordLink: "https://b23.tv/xM5Rats",
+	initialStartPoints: new Decimal(0), // Used for hard resets and new players
 }
 
 // Set your version in num and name
 let VERSION = {
-	num: "0.0",
-	name: "Literally nothing",
+	num: "0.1beta-3alpha",
+	name: "1th release + more content^2",
 }
 
-let changelog = `<h1>Changelog:</h1><br>
-	<h3>v0.0</h3><br>
-		- Added things.<br>
-		- Added stuff.`
+let changelog = `
+<h1>CURRENT ENDGAME:</h1><br>
+<h2>buy 'lithum III upgrade'</h2><br><br>
+<h1>CHANGELOG</h1>
+
+<br><br><h2>pre release stage</h2>
+
+<br><br><h3>0.1beta-3alpha</h3>
+<br>rewrite most of the code
+<br>update to lithum III upgrade
+
+<br><br><h3>0.1beta-2alpha</h3>
+<br>more upgs
+<br>prepare to unlock Li
+
+<br><br><h3>0.1beta</h3>
+<br>20upgs
+<br>about 10min content
+
+
+`
 
 let winText = `Congratulations! You have reached the end and beaten this game, but for now...`
 
@@ -41,8 +57,16 @@ function getPointGen() {
 	if(!canGenPoints())
 		return new Decimal(0)
 
+	let mult = decimalOne
+	mult = mult.times(tmp.h.effect)
+	mult = mult.times(tmp.he.effect)
+	mult = mult.times(tmp.li.effect)
+	mult = mult.times(buyableEffect('h', 11))
+	mult = applyeffect('he',32,mult)
+	let exp = decimalOne
+	exp = applyeffect('h',44,exp)
 	let gain = new Decimal(1)
-	return gain
+	return gain.times(mult).pow(exp)
 }
 
 // You can add non-layer related variables that should to into "player" and be saved here, along with default values
@@ -55,7 +79,7 @@ var displayThings = [
 
 // Determines when the game "ends"
 function isEndgame() {
-	return player.points.gte(new Decimal("e280000000"))
+	return false
 }
 
 
