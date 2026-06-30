@@ -157,7 +157,7 @@ addLayer("h", {
     },
     stellasize(){
         let a = tmp.h.fullstella.div(1e15).pow(0.5).div(3.14)
-        a = applyeffect('he',22,)
+        a = applyeffect('he',22,a)
         return a
     },
     stellaseff(){
