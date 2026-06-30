@@ -156,9 +156,9 @@ addLayer("h", {
         return player.h.storagedh.add(player.h.storagedhe)
     },
     stellasize(){
-        let  = tmp.h.fullstella.div(1e15).pow(0.5).div(3.14)
-         = applyeffect('he',22,)
-        return 
+        let a = tmp.h.fullstella.div(1e15).pow(0.5).div(3.14)
+        a = applyeffect('he',22,)
+        return a
     },
     stellaseff(){
         if(!hasUpgrade('he', 14)) return decimalOne
